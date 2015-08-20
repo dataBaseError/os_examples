@@ -28,6 +28,10 @@ void *runner(void *arg)
     return NULL;
 }
 
+/*
+ * Simple locking example that allows shows how
+ * simple locking can work.
+ */
 int main(int argc, char *argv[]) {
 
     pthread_t pth;

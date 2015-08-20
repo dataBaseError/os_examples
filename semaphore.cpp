@@ -19,37 +19,47 @@ void *runner(void *arg)
 
     while(i < 10 )
     {
-        //pthread_mutex_lock (&mutex);
+        // Create a critical section
         sem_wait(&sem);
+
+        // Increase the count
         count++;
         printf("%s says %i\n",str, count);
+
+        // End of the critical section
         sem_post(&sem);
-        usleep(1);        
+
+        usleep(1);
         ++i;
     }
 
     return NULL;
 }
 
+/*
+ * Use semaphores to simulate the mutex example of
+ * incrementing a shared variable.
+ */
 int main(int argc, char *argv[]) {
 
     pthread_t pth;
     pthread_t pth2;
     int i = 0;
 
+    // Initialize the semaphore.
     sem_init(&sem, 0, 1);
-    //pthread_mutex_init(&mutex, NULL);
 
+    // Create the threads
     pthread_create(&pth, 0, runner, (void *) "Thread 1");
     pthread_create(&pth2, 0, runner, (void *) "Thread 2");
 
-    /* Create worker thread */
     void ** retval;
 
-    /* wait for our thread to finish before continuing */
+    // wait for our thread to finish before continuing
     pthread_join(pth, retval);
 
-    pthread_mutex_destroy(&mutex);
+    // Clean up
+    sem_destroy(&sem);
 
     return 0;
 }

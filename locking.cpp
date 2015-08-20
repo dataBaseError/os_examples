@@ -19,34 +19,47 @@ void *runner(void *arg)
 
     while(i < 10 )
     {
+        // Request lock
         pthread_mutex_lock (&mutex);
+
+        // Increase the count safely.
         count++;
         printf("%s says %i\n",str, count);
+
+        // Yield the lock.
         pthread_mutex_unlock (&mutex);
-        usleep(1);        
+
+        // Sleep to simulate some work.
+        usleep(1);
         ++i;
     }
 
     return NULL;
 }
 
+/**
+ * Example with two threads incrementing a shared variable
+ * with a mutex.
+ */
 int main(int argc, char *argv[]) {
 
     pthread_t pth;
     pthread_t pth2;
     int i = 0;
 
+    // Initialize the mutex
     pthread_mutex_init(&mutex, NULL);
 
+    // Create two threads.
     pthread_create(&pth, 0, runner, (void *) "Thread 1");
     pthread_create(&pth2, 0, runner, (void *) "Thread 2");
 
-    /* Create worker thread */
     void ** retval;
 
-    /* wait for our thread to finish before continuing */
+    // wait for our thread to finish before continuing
     pthread_join(pth, retval);
 
+    // Clean up the mutex
     pthread_mutex_destroy(&mutex);
 
     return 0;

@@ -12,9 +12,10 @@ void *threadFunc(void *arg)
 
     str=(char*)arg;
 
-    while(i < 10 )
+    while(i < 10)
     {
         usleep(1);
+        // Show the thread is running
         printf("threadFunc says: %s\n",str);
         ++i;
     }
@@ -22,19 +23,23 @@ void *threadFunc(void *arg)
     return NULL;
 }
 
-
+/**
+ * Basic example that showing threading interleaving.
+ */
 int main(int argc, char *argv[]) {
 
-    pthread_t pth;  // this is our thread identifier
+    // Thread object
+    pthread_t pth;  
     int i = 0;
 
+    // Create the thread.
     pthread_create(&pth, 0, threadFunc, (void *) "processing...");
 
-    /* Create worker thread */
+    // Create worker thread
     void ** retval;
 
-    /* wait for our thread to finish before continuing */
-    pthread_join(pth, retval);
+    // wait for our thread to finish before continuing
+    //pthread_join(pth, retval);
 
     while(i < 10 )
     {
@@ -43,8 +48,8 @@ int main(int argc, char *argv[]) {
         ++i;
     }
 
-    /* wait for our thread to finish before continuing */
-    //pthread_join(pth, retval);
+    // wait for our thread to finish before continuing
+    pthread_join(pth, retval);
 
     return 0;
 }

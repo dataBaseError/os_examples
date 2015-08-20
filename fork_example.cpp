@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
+/**
+ * A simple forking example. Forks and both child and
+ * parent print out different messages.
+ */
 int main(int argc, char *argv[]) {
 
     pid_t PID = 0;
