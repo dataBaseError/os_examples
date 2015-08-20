@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #include <pthread.h>
-#include <semaphore.h>
 
 pthread_mutex_t mutex;
 
@@ -58,6 +57,7 @@ int main(int argc, char *argv[]) {
 
     // wait for our thread to finish before continuing
     pthread_join(pth, retval);
+    pthread_join(pth2, retval);
 
     // Clean up the mutex
     pthread_mutex_destroy(&mutex);

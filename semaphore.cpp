@@ -37,6 +37,7 @@ void *runner(void *arg)
 }
 
 /*
+ * Good info on pthreads semaphores from: http://www.csc.villanova.edu/~mdamian/threads/posixsem.html
  * Use semaphores to simulate the mutex example of
  * incrementing a shared variable.
  */
