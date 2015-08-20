@@ -1,5 +1,5 @@
 
-//#include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -8,8 +8,8 @@
 pthread_mutex_t mutex;
 pthread_cond_t cond;
 
-const int max_length = 10;
-int buffer[max_length];
+#define MAX_LENGTH 10
+int buffer[MAX_LENGTH];
 
 int duration = 20;
 int length = 0;
@@ -17,7 +17,6 @@ int length = 0;
 void *producer(void *arg)
 {
     char *str;
-    int i = 0;
 
     str=(char*)arg;
     for(int i = 0; i < duration; i++) {
@@ -25,7 +24,7 @@ void *producer(void *arg)
         // Request lock
         pthread_mutex_lock(&mutex);
 
-        while(length == max_length) {
+        while(length == MAX_LENGTH) {
             printf("Producer %s buffer full\n", str);
             pthread_cond_wait(&cond, &mutex);
         }
@@ -51,7 +50,6 @@ void *producer(void *arg)
 void *consumer(void *arg)
 {
     char *str;
-    int i = 0;
 
     str=(char*)arg;
     for(int i = 0; i < duration; i++) {
@@ -72,7 +70,7 @@ void *consumer(void *arg)
         int temp = buffer[length];
         printf("Consumer %s value %d\n",str, temp);
 
-        if(length+1 == max_length) {
+        if(length+1 == MAX_LENGTH) {
             // Signal the producer thread that the buffer is not full anymore.
             printf("Consumer %s buffer no longer full\n", str);
             pthread_cond_signal(&cond);
@@ -98,7 +96,6 @@ int main(int argc, char *argv[]) {
     pthread_t producer_thread2;
     pthread_t consumer_thread;
     pthread_t consumer_thread2;
-    int i = 0;
 
     // Initialize the mutex
     pthread_mutex_init(&mutex, NULL);

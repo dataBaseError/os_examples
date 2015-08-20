@@ -35,12 +35,10 @@ int main(int argc, char *argv[]) {
     // Create the thread.
     pthread_create(&pth, 0, threadFunc, (void *) "processing...");
 
-    // Create worker thread
-    void ** retval;
-
     // wait for our thread to finish before continuing
     //pthread_join(pth, retval);
 
+    // Show interleavings
     while(i < 10 )
     {
         usleep(1);
@@ -49,7 +47,7 @@ int main(int argc, char *argv[]) {
     }
 
     // wait for our thread to finish before continuing
-    pthread_join(pth, retval);
+    pthread_join(pth, 0);
 
     return 0;
 }

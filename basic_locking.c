@@ -35,7 +35,6 @@ void *runner(void *arg)
 int main(int argc, char *argv[]) {
 
     pthread_t pth;
-    int i = 0;
 
     // Initialize the mutex.
     pthread_mutex_init(&mutex, NULL);
@@ -52,14 +51,10 @@ int main(int argc, char *argv[]) {
 
     // Release the lock.
     pthread_mutex_unlock(&mutex);
-
-    // Create worker thread
-    void ** retval;
-
     printf("Main Thread joinning  with thread\n");
 
     // wait for our thread to finish before continuing
-    pthread_join(pth, retval);
+    pthread_join(pth, 0);
     printf("Main Thread finished waiting\n");
 
     // Distroy the mutex.

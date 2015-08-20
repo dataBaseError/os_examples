@@ -17,7 +17,7 @@ void *runner(void *arg)
 
     str=(char*)arg;
 
-    while(i < 10 )
+    while(i < 10)
     {
         // Create a critical section
         sem_wait(&sem);
@@ -45,7 +45,6 @@ int main(int argc, char *argv[]) {
 
     pthread_t pth;
     pthread_t pth2;
-    int i = 0;
 
     // Initialize the semaphore.
     sem_init(&sem, 0, 1);
@@ -54,10 +53,9 @@ int main(int argc, char *argv[]) {
     pthread_create(&pth, 0, runner, (void *) "Thread 1");
     pthread_create(&pth2, 0, runner, (void *) "Thread 2");
 
-    void ** retval;
-
     // wait for our thread to finish before continuing
-    pthread_join(pth, retval);
+    pthread_join(pth, 0);
+    pthread_join(pth2, 0);
 
     // Clean up
     sem_destroy(&sem);

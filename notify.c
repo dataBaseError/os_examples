@@ -16,7 +16,6 @@ int length = 0;
 void *producer(void *arg)
 {
     char *str;
-    int i = 0;
 
     str=(char*)arg;
     for(int i = 0; i < duration; i++) {
@@ -45,7 +44,6 @@ void *producer(void *arg)
 void *consumer(void *arg)
 {
     char *str;
-    int i = 0;
 
     str=(char*)arg;
     for(int i = 0; i < duration; i++) {
@@ -84,7 +82,6 @@ int main(int argc, char *argv[]) {
 
     pthread_t producer_thread;
     pthread_t consumer_thread;
-    int i = 0;
 
     // Initialize the mutex
     pthread_mutex_init(&mutex, NULL);
@@ -92,8 +89,6 @@ int main(int argc, char *argv[]) {
     // Create two threads.
     pthread_create(&producer_thread, 0, producer, (void *) "1");
     pthread_create(&consumer_thread, 0, consumer, (void *) "1");
-
-    //void ** retval;
 
     // wait for our thread to finish before continuing
     pthread_join(producer_thread, 0);
