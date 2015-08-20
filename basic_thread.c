@@ -1,8 +1,5 @@
 
-#include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
-
 #include <pthread.h>
 
 void *threadFunc(void *arg)
@@ -14,7 +11,6 @@ void *threadFunc(void *arg)
 
     while(i < 10)
     {
-       //usleep(1);
         // Show the thread is running
         printf("On %s\n",str);
         ++i;
