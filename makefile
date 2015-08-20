@@ -1,5 +1,6 @@
 # the compiler: gcc for C program, define as g++ for C++
 CC = clang
+# set as gcc if you don't have clang
 
 # compiler flags:
 #  -g    adds debugging information to the executable file
