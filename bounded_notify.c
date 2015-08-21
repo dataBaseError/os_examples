@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
     // Initialize the mutex
     pthread_mutex_init(&mutex, NULL);
 
-    // Create two threads.
+    // Create threads.
     pthread_create(&producer_thread, 0, producer, (void *) "1");
     pthread_create(&producer_thread2, 0, producer, (void *) "2");
     pthread_create(&consumer_thread, 0, consumer, (void *) "1");
